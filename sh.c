@@ -103,15 +103,47 @@ runcmd(struct cmd *cmd)
   exit(0);
 }
 
+/* 
+ * Function responsible for reading what was entered in the shell
+ */
 int
 getcmd(char *buf, int nbuf)
 {
-  if (isatty(fileno(stdin)))
+  // isatty() tests wheter a file descriptor refers to a terminal.
+  // Returns 1 if fd is an open file descriptor referring to a terminal;
+  // otherwise 0 is returned, and errno is set to indicate the error.
+
+  // fileno() returns the integer value of the file descriptor associated
+  // with stream. Otherwise, the value -1 is returned and errno is set to
+  // indicate the error.
+
+  // IF there is a file descriptor associated what was entered in the stdin
+  // AND IF said file descriptor refers to a terminal :
+  if (isatty(fileno(stdin))) {
+    // Print "$ ", indicatitng that a new command can be entered in the shell
     fprintf(stdout, "$ ");
+  }
+
+  // REMINDER : A buffer is the region of the memory that stores data that was read.
+
+  // For a buffer of size nbuf, set all of its contents to 0.
   memset(buf, 0, nbuf);
+
+  // fgets() reads the content of a file :
+
+  // char* fgets (
+  //   char *str,    => string that will be read
+  //   int size,     => how many characters must be read
+  //   FILE *fp      => where to read the string from
+  // );
+  
+  // Put the content that was entered in stdin inside the buffer :
   fgets(buf, nbuf, stdin);
-  if(buf[0] == 0) // EOF
+
+  if(buf[0] == 0) { // EOF
     return -1;
+  }
+
   return 0;
 }
 
@@ -140,8 +172,10 @@ main(void)
     }
     /* MARK END task1 */
 
-    if(fork1() == 0)
+    if(fork1() == 0) {
       runcmd(parsecmd(buf));
+    }
+
     wait(&r);
   }
   exit(0);
@@ -153,8 +187,11 @@ fork1(void)
   int pid;
   
   pid = fork();
-  if(pid == -1)
+
+  if(pid == -1) {
     perror("fork");
+  }
+
   return pid;
 }
 

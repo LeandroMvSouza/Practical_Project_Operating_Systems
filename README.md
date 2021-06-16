@@ -1,6 +1,23 @@
 # TP_1_SO
 Repository for the first practical project of the Operating Systems course - UFMG 2021/1
 
+<hr>
+<table>
+  <tr>
+    <th>Task 1</th>
+    <th>Task 2</th>
+    <th>Task 3</th>
+    <th>Task 4</th>
+  </tr>
+  <tr>
+    <td>Done</td>
+    <td>...</td>
+    <td>...</td>
+    <td>...</td>
+  </tr>
+</table>
+<hr>
+
 Compile with :
 
 `gcc sh.c -o myshell.out`

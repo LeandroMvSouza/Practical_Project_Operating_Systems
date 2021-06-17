@@ -76,7 +76,11 @@ runcmd(struct cmd *cmd)
     /* MARK START task2
      * TAREFA2: Implemente codigo abaixo para executar
      * comandos simples. */
-    fprintf(stderr, "exec nao implementado\n");
+
+    // fprintf(stderr, "exec nao implementado\n");
+    for (int i = 0 ; i < MAXARGS ; i++) {
+      fprintf(stderr, "%s\n", ecmd->argv[i]);
+    }
     /* MARK END task2 */
     break;
 
@@ -181,11 +185,18 @@ main(void)
   exit(0);
 }
 
+/*
+ * The fork() function purpose is to create a new process, which becomes the child 
+ * process of the caller .Both processes will execute the next instruction 
+ * following the fork() system call. Two identical copies of the computer's address
+ * space,code, and stack are created one for parent and child. Thinking of the fork
+ * as it was a person; Forking causes a clone of your program (process), that is 
+ * running the code it copied.
+ */
 int
 fork1(void)
 {
   int pid;
-  
   pid = fork();
 
   if(pid == -1) {
@@ -196,7 +207,7 @@ fork1(void)
 }
 
 /****************************************************************
- * Funcoes auxiliares para criar estruturas de comando
+ * Funções auxiliares para criar estruturas de comando
  ***************************************************************/
 
 struct cmd*
@@ -245,18 +256,29 @@ pipecmd(struct cmd *left, struct cmd *right)
 char whitespace[] = " \t\r\n\v";
 char symbols[] = "<|>";
 
+/*
+ * Tokens are the different parts that constitute a command.
+ * i.e. ps -ael
+ *      args[0] = 'ps'
+ *      args[1] = '-ael'
+ *      args[2] = NULL
+ */
 int
 gettoken(char **ps, char *es, char **q, char **eq)
 {
-  char *s;
+  char *s; // This is a form of declaring a string
   int ret;
-  
   s = *ps;
-  while(s < es && strchr(whitespace, *s))
+
+  while(s < es && strchr(whitespace, *s)) {
     s++;
-  if(q)
+  }
+  if(q) {
     *q = s;
+  }
+
   ret = *s;
+
   switch(*s){
   case 0:
     break;
@@ -273,11 +295,13 @@ gettoken(char **ps, char *es, char **q, char **eq)
       s++;
     break;
   }
-  if(eq)
+  if(eq) {
     *eq = s;
-  
-  while(s < es && strchr(whitespace, *s))
+  }
+  while(s < es && strchr(whitespace, *s)) {
     s++;
+  }
+
   *ps = s;
   return ret;
 }
@@ -286,10 +310,12 @@ int
 peek(char **ps, char *es, char *toks)
 {
   char *s;
-  
   s = *ps;
-  while(s < es && strchr(whitespace, *s))
+
+  while(s < es && strchr(whitespace, *s)) {
     s++;
+  }
+
   *ps = s;
   return *s && strchr(toks, *s);
 }
@@ -298,7 +324,7 @@ struct cmd *parseline(char**, char*);
 struct cmd *parsepipe(char**, char*);
 struct cmd *parseexec(char**, char*);
 
-/* Copiar os caracteres no buffer de entrada, comeando de s ate es.
+/* Copiar os caracteres no buffer de entrada, começando de s ate es.
  * Colocar terminador zero no final para obter um string valido. */
 char 
 *mkcopy(char *s, char *es)

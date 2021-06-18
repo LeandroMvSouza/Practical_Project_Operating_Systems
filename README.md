@@ -11,7 +11,7 @@ Repository for the first practical project of the Operating Systems course - UFM
   </tr>
   <tr>
     <td>Done</td>
-    <td>...</td>
+    <td>Done</td>
     <td>...</td>
     <td>...</td>
   </tr>

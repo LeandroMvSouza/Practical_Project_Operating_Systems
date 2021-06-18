@@ -73,9 +73,11 @@ runcmd(struct cmd *cmd)
     ecmd = (struct execcmd*)cmd;
     if(ecmd->argv[0] == 0)
       exit(0);
-    /* MARK START task2
-     * TAREFA2: Implemente codigo abaixo para executar
-     * comandos simples. */
+    /////////////////////////////////////////////////////////
+    // * MARK START task2                                 //
+    // * TAREFA2: Implemente abaixo um código caoaz de   //
+    // * executar comandos simples.                     //
+    /////////////////////////////////////////////////////
 
     // We can execute simple commands using execvp()
     // execvp (
@@ -118,20 +120,28 @@ runcmd(struct cmd *cmd)
   case '>':
   case '<':
     rcmd = (struct redircmd*)cmd;
-    /* MARK START task3
-     * TAREFA3: Implemente codigo abaixo para executar
-     * comando com redirecionamento. */
+    /////////////////////////////////////////////////////////
+    // * MARK START task3                                 //
+    // * TAREFA3: Implemente codigo abaixo para executar //
+    // * comando com redirecionamento.                  //
+    /////////////////////////////////////////////////////
+
     fprintf(stderr, "redir nao implementado\n");
+
     /* MARK END task3 */
     runcmd(rcmd->cmd);
     break;
 
   case '|':
     pcmd = (struct pipecmd*)cmd;
-    /* MARK START task4
-     * TAREFA4: Implemente codigo abaixo para executar
-     * comando com pipes. */
+    /////////////////////////////////////////////////////////
+    // * MARK START task4                                 //
+    // * TAREFA4: Implemente codigo abaixo para executar //
+    // * comando com pipes.                             //
+    /////////////////////////////////////////////////////
+
     fprintf(stderr, "pipe nao implementado\n");
+
     /* MARK END task4 */
     break;
   }    
@@ -190,10 +200,12 @@ main(void)
 
   // Ler e rodar comandos.
   while(getcmd(buf, sizeof(buf)) >= 0){
-    /* MARK START task1 */
-    /* TAREFA1: O que faz o if abaixo e por que ele é necessário?
-     * Insira sua resposta no código e modifique o fprintf abaixo
-     * para reportar o erro corretamente. */
+    /////////////////////////////////////////////////////////////////////
+    // * MARK START task1                                             //
+    // * TAREFA1: O que faz o if abaixo e por que ele é necessário?  //
+    // * Insira sua resposta no código e modifique o fprintf abaixo //
+    // * para reportar o erro corretamente                         //
+    ////////////////////////////////////////////////////////////////
 
     // O if abaixo verifica se no diretório atual existe uma pasta
     // com o nome passado como parâmetro do comando cd. Caso não

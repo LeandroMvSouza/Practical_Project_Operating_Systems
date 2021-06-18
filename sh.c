@@ -77,10 +77,41 @@ runcmd(struct cmd *cmd)
      * TAREFA2: Implemente codigo abaixo para executar
      * comandos simples. */
 
-    // fprintf(stderr, "exec nao implementado\n");
-    for (int i = 0 ; i < MAXARGS ; i++) {
-      fprintf(stderr, "%s\n", ecmd->argv[i]);
+    // We can execute simple commands using execvp()
+    // execvp (
+    //   const char *file,
+    //   char *const argv[]
+    // );
+
+    // i.e. the following code is equivalent to the ls -l command
+
+    // char* arg[] = {"ls", "-l", NULL};
+    // execvp(arg[0],arg);
+
+    // More info on : 
+    // https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_lib_ref/e/execvp.html
+
+    // Create a child process
+    r = fork1();
+    // Exit in case the fork failed
+    if(r < 0) {
+      perror("Fork error..");
+      exit(1);
     }
+    // Test to see if the child process is ready 
+    else if (r == 0){
+      if (execvp(ecmd->argv[0], ecmd->argv) < 0) {
+        perror("Exec error..");
+        exit(1);
+      }
+    }
+    // Otherwise, suspend the calling process until the 
+    // child process ends or is stopped
+    else {
+      int iStatus;
+      waitpid(r, &iStatus, 0); 
+    }
+
     /* MARK END task2 */
     break;
 

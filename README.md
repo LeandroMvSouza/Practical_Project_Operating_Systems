@@ -26,6 +26,10 @@ Execute the shell with :
 
 `./myshell.out`
 
+Execute test cases with :
+
+`bash grade.sh`
+
 This shell only supports simple commands such as : 
 
 `cd dir`

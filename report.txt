@@ -13,7 +13,7 @@ Preencha as linhas abaixo com o nome e o e-mail dos integrantes do
 grupo.  Substitua XX pela contribuição de cada membro do grupo no
 desenvolvimento do trabalho.
 
-Nome <email@domain.br> XX%
+Nome <lmvsminerador123@ufmg.br> 50%
 Nome <email@domain.br> XX%
 Nome <email@domain.br> XX%
 

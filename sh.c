@@ -160,23 +160,29 @@ runcmd(struct cmd *cmd)
 
     /* MARK START task4 */
 
-    int pipefd[2];
-    pipe(pipefd);
-    switch(fork1()){
+    pipe(p);
+    
+    if(p < 0){
+      perror("PIPE error");
+      exit(1);
+    }
+
+    r = fork1();
+
+    switch(r){
+    case -1:
+      perror("Fork error on PIPE");
+      exit(1);
     case 0:
-        close(1);
-        dup2(pipefd[1], 1);
-        close(pipefd[0]);
-        close(pipefd[1]);
-        runcmd(pcmd->left);
-        break;
+      dup2(p[1], 1);
+      runcmd(pcmd->left);
+      break;
     default:
-        close(0);
-        dup2(pipefd[0], 0);
-        close(pipefd[0]);
-        close(pipefd[1]);
-        runcmd(pcmd->right);
-        break;
+      dup2(p[0], 0);
+      close(p[0]);
+      close(p[1]);
+      runcmd(pcmd->right);
+      break;
     }
 
     /* MARK END task4 */

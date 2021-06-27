@@ -80,6 +80,18 @@ T3 -> Em primeiro lugar, fecha-se o file descriptor apontado por
 
       Por fim, o comando guardado em redircmd->cmd é executado.
 
-T4 -> ...
+T4 -> Primeiro, instancia-se uma pipe, passando como parâmetro a variável p,
+      um vetor de duas posições, que são os file descriptors.
+      Após, verifica se houve algum erro na pipe: havendo sucesso, bytes escritos
+      em p[1] podem ser lidos em p[0]. Senão, retorna -1.
+
+      Em seguida, guarda-se na variável r o fork do processo a ser executado, ou
+      seja, r guarda/é o filho do processo pai.
+
+      Por fim, verifica o que foi guardado em r. Há três opções:
+
+      . 
+      . 
+      . 
 
       Por fim, o comando guardado em redircmd->cmd é executado.

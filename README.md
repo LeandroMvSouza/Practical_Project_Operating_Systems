@@ -12,7 +12,7 @@ Repository for the first practical project of the Operating Systems course - UFM
   <tr>
     <td>Done</td>
     <td>Done</td>
-    <td>...</td>
+    <td>Done</td>
     <td>...</td>
   </tr>
 </table>

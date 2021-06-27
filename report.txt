@@ -15,13 +15,45 @@ desenvolvimento do trabalho.
 
 Nome <lmvsminerador123@ufmg.br> 50%
 Nome <email@domain.br> XX%
-Nome <email@domain.br> XX%
 
 3. Referências bibliográficas
 
-Adicione aqui as referências bibliográficas.
+. Linux Manual (i.e. $ man 3 exec)
+. Livro Texto + Slides
+. https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_lib_ref/e/execvp.html
+. https://stackoverflow.com/questions/5514464/difference-between-pthread-and-fork-on-gnu-linux/8514943
 
 4. Estruturas de dados
 
-Descreva e justifique as estruturas de dados e algoritmos utilizados
-em sua solução.
+T1 -> N/A
+
+T2 -> Guarda-se na variável r o fork do processo a ser executado, ou
+      seja, r guarda/é o filho do processo pai. 
+      
+      Caso r seja menor que 0, isso indica que houve um erro no 
+      processo de criação do fork, logo uma mensagem de erro 
+      customizada é printada junto à função perror() e esse system 
+      call é terminado indicando erro (exit(1)).
+
+      ...
+
+T3 -> Em primeiro lugar, fecha-se o file descriptor apontado por
+      redircmd->fd, de forma a evitar o mismatch de input ou
+      output de comandos.
+
+      Em seguida, cria-se um inteiro que armazenará o retorno da função
+      open(). Como parâmetros dela foram utilizados :
+      
+      . O arquivo de entrada ou saída (um ponteiro para o arquivo),
+        o qual é armazenado na estrutura redircmd->file ;
+      . O inteiro que representa as flags com as quais o arquivo deve
+        ser aberto, o qual é armazenado em redircmd->mode ;
+      . O mode_t com que o arquivo deve ser aberto, no caso 0666, que
+        indica apenas as permissões de leitura e escrita no arquivo.
+
+      Caso esse inteiro seja menor que 0 houve algum problema na
+      hora de se abrir o arquivo (provavelmente ele não existe).
+      Nesse caso, novamente uma função perror() é chamada e o system
+      call termina sua execução indicando erro.
+
+T4 ->

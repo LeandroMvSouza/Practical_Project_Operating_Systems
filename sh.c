@@ -10,7 +10,6 @@
 
 /* MARK NAME Leandro Marques Venceslau de Souza */
 /* MARK NAME Nome */
-/* MARK NAME E Etc */
 
 /****************************************************************
  * Shell xv6 simplificado
@@ -74,8 +73,8 @@ runcmd(struct cmd *cmd)
     if(ecmd->argv[0] == 0)
       exit(0);
     /////////////////////////////////////////////////////////
-    // * MARK START task2                                 //
-    // * TAREFA2: Implemente abaixo um código caoaz de   //
+    // * Task 2                                           //
+    // * Implemente abaixo um código caoaz de            //
     // * executar comandos simples.                     //
     /////////////////////////////////////////////////////
 
@@ -93,16 +92,21 @@ runcmd(struct cmd *cmd)
     // More info on : 
     // https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_lib_ref/e/execvp.html
 
+    /* MARK START task2 */
+
     // Create a child process
     r = fork1();
-    // Exit in case the fork failed
+    // Exit, indicating an error, in case the fork failed
     if(r < 0) {
-      perror("Fork error..");
+      perror("Fork error on EXEC..");
       exit(1);
     }
     // Test to see if the child process is ready 
     else if (r == 0){
       if (execvp(ecmd->argv[0], ecmd->argv) < 0) {
+        // The perror() function produces a message on standard error 
+        // describing the last error encountered during a call to a 
+        // system or library function.
         perror("Exec error..");
         exit(1);
       }
@@ -121,12 +125,22 @@ runcmd(struct cmd *cmd)
   case '<':
     rcmd = (struct redircmd*)cmd;
     /////////////////////////////////////////////////////////
-    // * MARK START task3                                 //
-    // * TAREFA3: Implemente codigo abaixo para executar //
+    // * Task 3                                           //
+    // * Implemente codigo abaixo para executar          //
     // * comando com redirecionamento.                  //
     /////////////////////////////////////////////////////
 
-    fprintf(stderr, "redir nao implementado\n");
+    /* MARK START task3 */
+
+    close(rcmd->fd);
+
+    int fileReadWrite;
+    fileReadWrite = open(rcmd->file,rcmd->mode, 0666);
+
+    if(fileReadWrite < 0){
+      perror("Redirect error..");
+      exit(1);
+    }
 
     /* MARK END task3 */
     runcmd(rcmd->cmd);
@@ -135,12 +149,14 @@ runcmd(struct cmd *cmd)
   case '|':
     pcmd = (struct pipecmd*)cmd;
     /////////////////////////////////////////////////////////
-    // * MARK START task4                                 //
-    // * TAREFA4: Implemente codigo abaixo para executar //
+    // * Task 4                                           //
+    // * Implemente codigo abaixo para executar          //
     // * comando com pipes.                             //
     /////////////////////////////////////////////////////
 
-    fprintf(stderr, "pipe nao implementado\n");
+    /* MARK START task4 */
+
+    // TO DO !!!
 
     /* MARK END task4 */
     break;
@@ -201,8 +217,8 @@ main(void)
   // Ler e rodar comandos.
   while(getcmd(buf, sizeof(buf)) >= 0){
     /////////////////////////////////////////////////////////////////////
-    // * MARK START task1                                             //
-    // * TAREFA1: O que faz o if abaixo e por que ele é necessário?  //
+    // * Task 1                                                       //
+    // * O que faz o if abaixo e por que ele é necessário?           //
     // * Insira sua resposta no código e modifique o fprintf abaixo //
     // * para reportar o erro corretamente                         //
     ////////////////////////////////////////////////////////////////
@@ -210,6 +226,8 @@ main(void)
     // O if abaixo verifica se no diretório atual existe uma pasta
     // com o nome passado como parâmetro do comando cd. Caso não
     // seja o caso, o shell imprime um erro e continua executando.
+
+    /* MARK START task1 */
     
     if(buf[0] == 'c' && buf[1] == 'd' && buf[2] == ' '){
       buf[strlen(buf)-1] = 0;
@@ -217,6 +235,7 @@ main(void)
         fprintf(stderr, "Não existe uma pasta com esse nome no diretório atual.\n");
       continue;
     }
+
     /* MARK END task1 */
 
     if(fork1() == 0) {

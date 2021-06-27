@@ -19,7 +19,8 @@ Nome <email@domain.br> XX%
 3. Referências bibliográficas
 
 . Linux Manual (i.e. $ man 3 exec)
-. Livro Texto + Slides
+. Livro Texto (Abraham Silberschatz & CO; Fundamentos de Sistemas Operacionais; Nona Edição)
+. https://stackoverflow.com/questions/22092088/the-waitpid-parameters
 . https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_lib_ref/e/execvp.html
 . https://stackoverflow.com/questions/5514464/difference-between-pthread-and-fork-on-gnu-linux/8514943
 
@@ -35,7 +36,22 @@ T2 -> Guarda-se na variável r o fork do processo a ser executado, ou
       customizada é printada junto à função perror() e esse system 
       call é terminado indicando erro (exit(1)).
 
-      ...
+      Caso r seja igual a 0 o processo de fork foi realizado com 
+      sucesso. Nesse caso, executamos o comando que foi entrado
+      no bash utilizando a função execvp() e armazenamos o inteiro
+      de controle retornado por essa função em exe. Se exe for menor
+      que 0 isso indica um erro - nesse caso, novamente, perror() é 
+      chamado e a system call termina indicando erro.
+
+      Para qualquer outro valor de r , suspenda suspender a 
+      execução do thread de chamada até que um de seus filhos termine.
+      Isso é feito utilizando a função waitpid() que tem como parâmetros :
+
+      . O processo ao qual estou esperando, no caso r.
+      . Um ponteiro para o inteiro que armazenará o status de saída de r.
+      . O inteiro 0, indicando que não serão utilizadas flags/options.
+
+      Por fim, o comando guardado em redircmd->cmd é executado.
 
 T3 -> Em primeiro lugar, fecha-se o file descriptor apontado por
       redircmd->fd, de forma a evitar o mismatch de input ou
@@ -56,4 +72,8 @@ T3 -> Em primeiro lugar, fecha-se o file descriptor apontado por
       Nesse caso, novamente uma função perror() é chamada e o system
       call termina sua execução indicando erro.
 
-T4 ->
+      Por fim, o comando guardado em redircmd->cmd é executado.
+
+T4 -> ...
+
+      Por fim, o comando guardado em redircmd->cmd é executado.

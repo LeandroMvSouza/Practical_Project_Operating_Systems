@@ -74,12 +74,12 @@ runcmd(struct cmd *cmd)
       exit(0);
     /////////////////////////////////////////////////////////
     // * Task 2                                           //
-    // * Implemente abaixo um código caoaz de            //
+    // * Implemente abaixo um código capaz de            //
     // * executar comandos simples.                     //
     /////////////////////////////////////////////////////
 
     // We can execute simple commands using execvp()
-    // execvp (
+    // int execvp (
     //   const char *file,
     //   char *const argv[]
     // );
@@ -96,17 +96,21 @@ runcmd(struct cmd *cmd)
 
     // Create a child process
     r = fork1();
-    // Exit, indicating an error, in case the fork failed
+    // Exit indicating an error, in case the fork failed
     if(r < 0) {
+      // The perror() function produces a message on standard error 
+      // describing the last error encountered during a call to a 
+      // system or library function.
       perror("Fork error on EXEC..");
       exit(1);
     }
-    // Test to see if the child process is ready 
+    // Test to see if the child process was created
     else if (r == 0){
-      if (execvp(ecmd->argv[0], ecmd->argv) < 0) {
-        // The perror() function produces a message on standard error 
-        // describing the last error encountered during a call to a 
-        // system or library function.
+      // Execute the current command entered in the bash shell
+      int exe;
+      exe = execvp(ecmd->argv[0], ecmd->argv);
+
+      if (exe < 0) {
         perror("Exec error..");
         exit(1);
       }
@@ -114,8 +118,8 @@ runcmd(struct cmd *cmd)
     // Otherwise, suspend the calling process until the 
     // child process ends or is stopped
     else {
-      int iStatus;
-      waitpid(r, &iStatus, 0); 
+      int exitStatus;
+      waitpid(r, &exitStatus, 0);
     }
 
     /* MARK END task2 */

@@ -20,6 +20,7 @@ Nome <email@domain.br> XX%
 
 . Linux Manual (i.e. $ man 3 exec)
 . Livro Texto (Abraham Silberschatz & CO; Fundamentos de Sistemas Operacionais; Nona Edição)
+. http://www.filepermissions.com/directory-permission/0666
 . https://stackoverflow.com/questions/22092088/the-waitpid-parameters
 . https://www.qnx.com/developers/docs/6.5.0SP1.update/com.qnx.doc.neutrino_lib_ref/e/execvp.html
 . https://stackoverflow.com/questions/5514464/difference-between-pthread-and-fork-on-gnu-linux/8514943

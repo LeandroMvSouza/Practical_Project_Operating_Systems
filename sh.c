@@ -9,7 +9,7 @@
 #include <sys/wait.h>
 
 /* MARK NAME Leandro Marques Venceslau de Souza */
-/* MARK NAME Nome */
+/* MARK NAME Felipe Matheus Guimarães dos Santos */
 
 /****************************************************************
  * Shell xv6 simplificado
@@ -160,7 +160,24 @@ runcmd(struct cmd *cmd)
 
     /* MARK START task4 */
 
-    // TO DO !!!
+    int pipefd[2];
+    pipe(pipefd);
+    switch(fork1()){
+    case 0:
+        close(1);
+        dup2(pipefd[1], 1);
+        close(pipefd[0]);
+        close(pipefd[1]);
+        runcmd(pcmd->left);
+        break;
+    default:
+        close(0);
+        dup2(pipefd[0], 0);
+        close(pipefd[0]);
+        close(pipefd[1]);
+        runcmd(pcmd->right);
+        break;
+    }
 
     /* MARK END task4 */
     break;

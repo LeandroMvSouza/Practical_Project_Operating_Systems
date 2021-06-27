@@ -27,7 +27,12 @@ Nome <email@domain.br> XX%
 
 4. Estruturas de dados
 
-T1 -> N/A
+T1 -> N/A . Não foi necessário implementar nenhuma estrutura de dados.
+      Segue a resposta para essa task :
+
+      O if verifica se no diretório atual existe uma pasta
+      com o nome passado como parâmetro do comando cd. Caso não
+      seja o caso, o shell imprime um erro e continua executando.
 
 T2 -> Guarda-se na variável r o fork do processo a ser executado, ou
       seja, r guarda/é o filho do processo pai. 

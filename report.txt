@@ -14,7 +14,10 @@ grupo.  Substitua XX pela contribuição de cada membro do grupo no
 desenvolvimento do trabalho.
 
 Nome <lmvsminerador123@ufmg.br> 50%
+  Responsável por implementar e documentar as tasks 2 e 3.
 Nome <felipe-guimaraes@ufmg.br> 50%
+  Responsável por implementar e documentar a task 4. Além disso, 
+  documentou a task 1, que já estava implementada.
 
 3. Referências bibliográficas
 
@@ -28,8 +31,8 @@ Nome <felipe-guimaraes@ufmg.br> 50%
 
 4. Estruturas de dados
 
-T1 -> N/A . Não foi necessário implementar nenhuma estrutura de dados.
-      Segue a resposta para essa task :
+T1 -> N/A. Não foi necessário implementar nenhuma estrutura de dados.
+      Segue a resposta para essa task:
 
       O if verifica se no diretório atual existe uma pasta
       com o nome passado como parâmetro do comando cd. Caso não
@@ -81,22 +84,24 @@ T3 -> Em primeiro lugar, fecha-se o file descriptor apontado por
 
       Por fim, o comando guardado em redircmd->cmd é executado.
 
-T4 -> Primeiro, instancia-se uma pipe, a variável p, um vetor de duas posições,
-      que são os file descriptors (fd).
+T4 -> Primeiro, instancia-se uma pipe, na variável p, um vetor de duas
+      posições, que serão os file descriptors (fd).
 
-      Após, verifica se houve algum erro na pipe: havendo sucesso, bytes escritos
-      em p[1] podem ser lidos em p[0], retornando 0. Havendo erro, retorna -1.
+      Após, verifica se houve algum erro na pipe: havendo sucesso, 
+      bytes escritos em p[1] podem ser lidos em p[0], retornando 0.
+      Havendo erro, retorna -1.
 
-      Em seguida, guarda-se na variável r o fork do processo a ser executado, ou
-      seja, r guarda/é o filho do processo pai.
+      Em seguida, guarda-se na variável r o fork do processo a 
+      ser executado, ou seja, r guarda/é o filho do processo pai.
 
       Por fim, verifica o que foi guardado em r. Há três opções:
 
       . Caso haja algum erro de piping, r valerá -1 e encerrará o programa;
-      . Caso o valor de r seja 0, o fd de escrita será duplicado e irá rodar a parte
-        esquerda da pipe. Nesse caso, foi usado o dup2 pois pode-se declarar o fd escolhido.
-      . Caso não seja nenhum dos casos anteriores, significa que chegou ao último processo
-        da pipe, dessa forma, será duplicado o fd de leitura, fechará ambos os fds e rodará
-        a parte direita da pipe.
+      . Caso o valor de r seja 0, o fd de escrita será duplicado
+        e irá rodar a parte esquerda da pipe.
+        Nesse caso, foi usado o dup2 pois pode-se declarar o fd escolhido.
+      . Caso não seja nenhum dos casos anteriores, significa que 
+        chegou ao último processo da pipe, dessa forma, será duplicado o
+        fd de leitura, fechará ambos os fds e rodará a parte direita da pipe.
 
       Por fim, o comando guardado em redircmd->cmd é executado.
